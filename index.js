@@ -15,10 +15,17 @@ const { Boom } = require('@hapi/boom');
 const QRCode = require('qrcode');
 const pino = require('pino');
 const http = require('http');
+const { createClient } = require('@supabase/supabase-js');
+const { useSupabaseAuthState } = require('./lib/supabaseAuthState');
 
 const EDGE_FUNCTION_URL = process.env.EDGE_FUNCTION_URL; // contoh: https://xxxx.supabase.co/functions/v1/process-message
 const EDGE_FUNCTION_SECRET = process.env.EDGE_FUNCTION_SECRET; // token internal, biar endpoint ga bisa dipanggil sembarang orang
 const PORT = process.env.PORT || 3000;
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 let latestQrDataUrl = null; // simpan QR code terbaru sebagai gambar, buat ditampilkan di /qr
 let connectionStatus = 'starting'; // starting | waiting_for_scan | connected | disconnected
@@ -45,7 +52,7 @@ http
   .listen(PORT, () => console.log(`Health check + QR server jalan di port ${PORT}`));
 
 async function startBot() {
-  const { state, saveCreds } = await useMultiFileAuthState('./auth_session');
+  const { state, saveCreds } = await useSupabaseAuthState(supabase);
 
   const sock = makeWASocket({
     auth: state,
