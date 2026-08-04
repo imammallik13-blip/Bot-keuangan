@@ -1,0 +1,19 @@
+{
+  "name": "whatsapp-bookkeeping-bot",
+  "version": "1.0.0",
+  "description": "Bridge WhatsApp (Baileys) ke Supabase Edge Function untuk pembukuan pasutri",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.9",
+    "@hapi/boom": "^10.0.1",
+    "qrcode": "^1.5.4",
+    "pino": "^9.5.0",
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
