@@ -16,7 +16,7 @@ const QRCode = require('qrcode');
 const pino = require('pino');
 const http = require('http');
 const { createClient } = require('@supabase/supabase-js');
-const { useSupabaseAuthState } = require('./lib/supabaseAuthState');
+const { useSupabaseAuthState } = require('./lib/SupabaseAuthState');
 
 const EDGE_FUNCTION_URL = process.env.EDGE_FUNCTION_URL; // contoh: https://xxxx.supabase.co/functions/v1/process-message
 const EDGE_FUNCTION_SECRET = process.env.EDGE_FUNCTION_SECRET; // token internal, biar endpoint ga bisa dipanggil sembarang orang
